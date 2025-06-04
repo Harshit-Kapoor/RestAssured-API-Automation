@@ -1,0 +1,128 @@
+Step 1: Complex JSON Example
+
+{
+  "id": 1001,
+  "name": "Acme Corp",
+  "isActive": true,
+  "contact": {
+    "email": "info@acme.com",
+    "phone": "+123456789"
+  },
+  "departments": [
+    {
+      "deptId": 10,
+      "deptName": "Engineering",
+      "employees": [
+        { "empId": 1, "empName": "Alice", "salary": 60000 },
+        { "empId": 2, "empName": "Bob", "salary": 55000 }
+      ]
+    },
+    {
+      "deptId": 20,
+      "deptName": "HR",
+      "employees": [
+        { "empId": 3, "empName": "Charlie", "salary": 50000 }
+      ]
+    }
+  ]
+}
+
+==================================================================================================================================================================
+
+🧱 Step 2: Java POJOs for This JSON
+
+Employee.java
+public class Employee {
+    private int empId;
+    private String empName;
+    private double salary;
+
+    // Getters and Setters
+}
+
+Department.java
+
+import java.util.List;
+
+public class Department {
+    private int deptId;
+    private String deptName;
+    private List<Employee> employees;
+
+    // Getters and Setters
+}
+
+Contact.java
+
+public class Contact {
+    private String email;
+    private String phone;
+
+    // Getters and Setters
+}
+
+Company.java
+
+import java.util.List;
+
+public class Company {
+    private int id;
+    private String name;
+    private boolean isActive;
+    private Contact contact;
+    private List<Department> departments;
+
+    // Getters and Setters
+}
+
+==================================================================================================================================================================
+
+🔄 Step 3: Deserialization (JSON → Java)
+
+Company company = given()
+    .baseUri("https://api.example.com")
+    .when()
+    .get("/company/1001")
+    .then()
+    .statusCode(200)
+    .extract()
+    .as(Company.class);
+
+// Access nested data
+System.out.println(company.getDepartments().get(0).getDeptName()); // Engineering
+System.out.println(company.getDepartments().get(0).getEmployees().get(1).getEmpName()); // Bob
+
+==================================================================================================================================================================
+
+🔁 Step 4: Serialization (Java → JSON)
+
+// Create company data
+Employee e1 = new Employee(); e1.setEmpId(1); e1.setEmpName("Alice"); e1.setSalary(60000);
+Employee e2 = new Employee(); e2.setEmpId(2); e2.setEmpName("Bob"); e2.setSalary(55000);
+
+Department dept = new Department();
+dept.setDeptId(10); dept.setDeptName("Engineering");
+dept.setEmployees(Arrays.asList(e1, e2));
+
+Contact contact = new Contact();
+contact.setEmail("info@acme.com");
+contact.setPhone("+123456789");
+
+Company company = new Company();
+company.setId(1001);
+company.setName("Acme Corp");
+company.setIsActive(true);
+company.setContact(contact);
+company.setDepartments(Collections.singletonList(dept));
+
+// Send as JSON
+given()
+    .baseUri("https://api.example.com")
+    .contentType(ContentType.JSON)
+    .body(company)
+.when()
+    .post("/company")
+.then()
+    .statusCode(201);
+
+==================================================================================================================================================================

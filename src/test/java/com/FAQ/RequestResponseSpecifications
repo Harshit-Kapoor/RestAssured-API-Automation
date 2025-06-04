@@ -1,0 +1,168 @@
+RequestSpecification is an interface in REST Assured that allows you to define the common request setup such as base URI, headers, query parameters,
+request body, authentication, etc. It promotes code reusability and cleaner test code.
+
+🔹 Common Use-Cases:
+Setting up base URI and base path.
+
+Adding common headers or authentication.
+
+Configuring content type and query/path parameters.
+
+🔹 Syntax:
+
+RequestSpecification requestSpec = RestAssured.given()
+    .baseUri("https://api.example.com")
+    .basePath("/users")
+    .header("Authorization", "Bearer abc123")
+    .contentType(ContentType.JSON);
+You can then use it like this:
+
+given()
+    .spec(requestSpec)
+    .when()
+    .get("/123")
+    .then()
+    .statusCode(200);
+
+==================================================================================================================================================================
+
+✅ What is ResponseSpecification?
+
+🔹 Definition:
+ResponseSpecification is an interface to define expectations from the API response, such as expected status code, content type, headers, response body assertions, etc.
+
+🔹 Common Use-Cases:
+Verifying status codes.
+
+Checking headers.
+
+Validating specific response body elements.
+
+Ensuring consistent response structures.
+
+🔹 Syntax:
+
+ResponseSpecification responseSpec = RestAssured.expect()
+    .statusCode(200)
+    .contentType(ContentType.JSON)
+    .header("Server", "nginx");
+
+Use like this:
+
+given()
+    .spec(requestSpec)
+.when()
+    .get("/123")
+.then()
+    .spec(responseSpec)
+    .body("name", equalTo("John"));
+
+==================================================================================================================================================================
+
+🧪 Complete Example with Both Specifications
+
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+public class ApiTest {
+
+    RequestSpecification requestSpec;
+    ResponseSpecification responseSpec;
+
+    @BeforeClass
+    public void setup() {
+        requestSpec = new RequestSpecBuilder()
+            .setBaseUri("https://jsonplaceholder.typicode.com")
+            .setContentType(ContentType.JSON)
+            .addHeader("Accept", "application/json")
+            .build();
+
+        responseSpec = new ResponseSpecBuilder()
+            .expectStatusCode(200)
+            .expectContentType(ContentType.JSON)
+            .build();
+
+        RestAssured.requestSpecification = requestSpec;
+        RestAssured.responseSpecification = responseSpec;
+    }
+
+    @Test
+    public void testGetUser() {
+        given()
+        .when()
+            .get("/users/1")
+        .then()
+            .body("username", equalTo("Bret"))
+            .body("address.geo.lat", notNullValue());
+    }
+}
+
+==================================================================================================================================================================
+
+🧰 Additional Examples
+
+📌 Request Specification with Query Params and Auth:
+
+RequestSpecification reqreq = given()
+    .baseUri("https://api.example.com")
+    .queryParam("page", 1)
+    .auth().basic("user", "pass");
+
+📌 Response Specification with Custom Header and Body Validation:
+
+ResponseSpecification resp = expect()
+    .statusCode(200)
+    .header("Content-Length", notNullValue())
+    .body("data.id", equalTo(101));
+
+==================================================================================================================================================================
+
+The difference between RequestSpecification and RequestSpecBuilder in REST Assured (a Java library for testing REST APIs) lies in their purpose and usage:
+
+✅ 1. RequestSpecBuilder
+Purpose: It is used to build a RequestSpecification in a clean and reusable way.
+
+Type: Builder class.
+
+Usage: Set various properties like base URI, headers, authentication, etc., and then call .build() to get a RequestSpecification.
+
+Example:
+RequestSpecBuilder builder = new RequestSpecBuilder();
+builder.setBaseUri("https://api.example.com");
+builder.setContentType(ContentType.JSON);
+builder.addHeader("Authorization", "Bearer abc123");
+
+RequestSpecification requestSpec = builder.build();
+✅ 2. RequestSpecification
+Purpose: Represents a prepared request. It can be reused across multiple test cases.
+
+Type: Interface / Specification object.
+
+Usage: Used to make actual API requests or pass to REST Assured methods.
+
+Example:
+given()
+    .spec(requestSpec) // Using the built spec
+.when()
+    .get("/users")
+.then()
+    .statusCode(200);
+
+🔁 Summary Table
+Feature	                RequestSpecBuilder	                        RequestSpecification
+Purpose	                  Build request specifications	            Represent request specifications
+Type	                  Builder class	                            Specification object (interface)
+Mutability	              Used to build spec (mutable)	            Immutable (after built)
+Used in API call?	      ❌ No – used only for setup	            ✅ Yes – used in .spec() or .given()
+Common Method	          .build()	                                .spec() or chaining with .given()
+
+==================================================================================================================================================================
+
+💡 Best Practices
+Use RequestSpecBuilder and ResponseSpecBuilder for better readability.
+
+Set global specs in RestAssured.requestSpecification and RestAssured.responseSpecification.
+
+Use them especially in frameworks to avoid redundancy.
+
+Combine them with reusable test methods in a base class.

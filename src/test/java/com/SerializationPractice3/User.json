@@ -1,0 +1,38 @@
+{
+  "user": {
+    "id": 101,
+    "name": "John Doe",
+    "contacts": [
+      {
+        "type": "email",
+        "details": "john.doe@example.com"
+      },
+      {
+        "type": "phone",
+        "details": "+1234567890"
+      }
+    ],
+    "addresses": {
+      "home": {
+        "street": "123 Main St",
+        "city": "New York",
+        "zipcode": "10001"
+      },
+      "work": {
+        "street": "456 Office Rd",
+        "city": "Los Angeles",
+        "zipcode": "90001"
+      }
+    },
+    "roles": [
+      {
+        "roleName": "Admin",
+        "permissions": ["READ", "WRITE", "DELETE"]
+      },
+      {
+        "roleName": "User",
+        "permissions": ["READ"]
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+========================================================================================================================================
+
+What will we validate while testing a api -
+
+When testing APIs, there are several key aspects to validate:
+
+Response Status Codes: Ensure the API returns the correct HTTP status codes (e.g., 200 for success, 404 for not found, 500 for server error).
+
+Response Body: Validate the content of the response body. Check for the expected data structure (JSON or XML) and the presence of required fields.
+
+Response Time: Measure how long it takes for the API to respond and ensure it meets performance requirements.
+
+Headers: Check that the response headers are correct (e.g., content type, authentication tokens, caching headers).
+
+Error Handling: Test how the API handles invalid inputs, ensuring appropriate error messages and status codes are returned.
+
+Authentication and Authorization: Validate that secure endpoints require the correct authentication and that users have the right permissions for the resources they are trying to access.
+
+Data Integrity: Check that the data being sent to and from the API is accurate and consistent with what is expected.
+
+Rate Limiting: Ensure the API properly enforces rate limits and handles requests accordingly.
+
+Security: Validate that the API is protected against common vulnerabilities, such as SQL injection, XSS, and CSRF.
+
+Versioning: If applicable, ensure that different API versions function as intended and that backward compatibility is maintained.
+
+By systematically validating these aspects, testers can ensure that APIs are robust, reliable, and meet user requirements.
+
+====================================================================================================================================
+
+Status
+
+"Rest Assured" is a popular Java library used for testing RESTful web services. It simplifies the process of writing tests for APIs by
+providing a fluent syntax for making HTTP requests and validating responses. With Rest Assured, you can easily send GET, POST, PUT, DELETE
+requests, and assert various aspects of the response, such as status codes, response body content, headers, and more. It integrates well with
+testing frameworks like JUnit and TestNG, making it a favored choice for developers and testers working with APIs.
+
+====================================================================================================================================
+
+Design Patterns
+
+Creation type design pattern - singleton, factory design pattern = help to create objects
+
+Structural types design pattern - like page object model which help us to structure page objects , also builder pattern
+
+Behaviour design pattern - like an example on language how we want to structure

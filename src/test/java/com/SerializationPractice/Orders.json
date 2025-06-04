@@ -1,0 +1,33 @@
+{
+  "orderId": "ORD123456",
+  "orderDate": "2025-04-20T10:15:30Z",
+  "customer": {
+    "customerId": 789,
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+  },
+  "items": [
+    {
+      "productId": "P1001",
+      "productName": "Wireless Mouse",
+      "quantity": 2,
+      "price": 25.99
+    },
+    {
+      "productId": "P1002",
+      "productName": "USB-C Charger",
+      "quantity": 1,
+      "price": 19.99
+    }
+  ],
+  "shipping": {
+    "address": {
+      "street": "123 Main St",
+      "city": "New York",
+      "zip": "10001"
+    },
+    "method": "Express",
+    "trackingNumber": "TRK987654321"
+  },
+  "status": "Shipped"
+}
