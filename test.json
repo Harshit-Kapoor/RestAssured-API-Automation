@@ -1,0 +1,28 @@
+{
+  "email": "rachel.howell@reqres.in",
+  "first_name": "fname",
+  "last_name": "Howell",
+  "avatar": "https://reqres.in/img/faces/12-image.jpg",
+  "jobs": [
+    "tester",
+    "player"
+  ],
+  "marks": [
+    {
+      "english": 25,
+      "german": 30
+    },
+    {
+      "english": 25,
+      "german": 30
+    }
+  ],
+  "favFoods": {
+    "breakfast": "omelette",
+    "lunch": "pasta",
+    "dinner": [
+      "rice",
+      "soup"
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "email": "bart.baker@gmail.com",
+    "favouriteFoods": {
+      "breakfast": "cereal",
+      "lunch": "fruits",
+      "dinner": [
+        "rice",
+        "beans"
+      ]
+    },
+    "firstName": "Agent",
+    "id": 47,
+    "jobs": [
+      "player",
+      "singer"
+    ],
+    "lastName": " ",
+    "marks": [
+      {
+        "english": 24,
+        "german": 30
+      },
+      {
+        "english": 27,
+        "german": 29
+      }
+    ]
+  }
+]
